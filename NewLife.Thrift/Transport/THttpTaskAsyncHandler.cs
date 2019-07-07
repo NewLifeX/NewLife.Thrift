@@ -4,7 +4,7 @@ using NewLife.Thrift.Protocol;
 
 namespace NewLife.Thrift.Transport
 {
-#if !__CORE__
+#if !__CORE__ && !NET40
     /// <summary>
     /// An async task based HTTP handler for processing thrift services.
     /// </summary>
