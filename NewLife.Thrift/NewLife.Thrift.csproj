@@ -6,9 +6,9 @@
     <AssemblyTitle>Thrift序列化</AssemblyTitle>
     <Description>Thrift序列化支持库</Description>
     <Company>新生命开发团队</Company>
-    <Copyright>©2002-2019 新生命开发团队</Copyright>
-    <Version>0.13.2019.0707</Version>
-    <FileVersion>0.13.2019.0707</FileVersion>
+    <Copyright>©2002-2020 新生命开发团队</Copyright>
+    <Version>0.13.2020.0601</Version>
+    <FileVersion>0.13.2020.0601</FileVersion>
     <AssemblyVersion>0.13.*</AssemblyVersion>
     <Deterministic>false</Deterministic>
     <OutputPath>..\Bin</OutputPath>
@@ -56,7 +56,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="NewLife.Core" Version="8.2.2019.706" />
+    <PackageReference Include="NewLife.Core" Version="8.7.2020.601" />
   </ItemGroup>
 
 </Project>
