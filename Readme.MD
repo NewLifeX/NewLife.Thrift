@@ -1,4 +1,12 @@
-﻿方便通过Thrift实现目标协议
+﻿# NewLife.Thrift - Thrift协议
+
+![GitHub top language](https://img.shields.io/github/languages/top/newlifex/newlife.thrift?logo=github)
+![GitHub License](https://img.shields.io/github/license/newlifex/newlife.thrift?logo=github)
+![Nuget Downloads](https://img.shields.io/nuget/dt/newlife.thrift?logo=nuget)
+![Nuget](https://img.shields.io/nuget/v/newlife.thrift?logo=nuget)
+![Nuget (with prereleases)](https://img.shields.io/nuget/vpre/newlife.thrift?label=dev%20nuget&logo=nuget)
+
+方便通过Thrift实现目标协议
 
 ## 新生命开源项目矩阵
 各项目默认支持net4.5/net4.0/netstandard2.0  
