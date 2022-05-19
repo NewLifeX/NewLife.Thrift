@@ -1,10 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using NewLife.Thrift.Protocol;
 using System.Web;
-using NewLife.Thrift.Protocol;
 
 namespace NewLife.Thrift.Transport
 {
-#if !__CORE__ && !NET40
+#if NET45_OR_GREATER
     /// <summary>
     /// An async task based HTTP handler for processing thrift services.
     /// </summary>

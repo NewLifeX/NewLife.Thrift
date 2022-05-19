@@ -1,11 +1,9 @@
-﻿using System;
-using System.IO.Pipes;
+﻿using System.IO.Pipes;
 using System.Security.Principal;
-using System.Threading;
 
 namespace NewLife.Thrift.Transport
 {
-#if !__CORE__
+#if !NETSTANDARD
     public class TNamedPipeServerTransport : TServerTransport
     {
         /// <summary>

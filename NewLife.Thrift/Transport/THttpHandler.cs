@@ -1,12 +1,10 @@
-using System;
-using System.IO;
+using NewLife.Thrift.Protocol;
 using System.Net;
 using System.Web;
-using NewLife.Thrift.Protocol;
 
 namespace NewLife.Thrift.Transport
 {
-#if !__CORE__
+#if !NETSTANDARD
     public class THttpHandler : IHttpHandler
     {
         protected TProcessor processor;
