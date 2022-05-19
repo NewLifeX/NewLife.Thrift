@@ -1,14 +1,18 @@
-using System;
-using System.Text;
+﻿using System.Text;
 using NewLife.Thrift.Transport;
 
 namespace NewLife.Thrift.Protocol
 {
-    public abstract class TProtocol : IDisposable
+    /// <summary>协议基类</summary>
+    public abstract class TProtocol : DisposeBase
     {
         private const Int32 DEFAULT_RECURSION_DEPTH = 64;
         private Int32 recursionDepth;
 
+        /// <summary>
+        /// 实例化
+        /// </summary>
+        /// <param name="trans"></param>
         protected TProtocol(TTransport trans)
         {
             Transport = trans;
@@ -16,10 +20,20 @@ namespace NewLife.Thrift.Protocol
             recursionDepth = 0;
         }
 
+        /// <summary>
+        /// 传输口
+        /// </summary>
         public TTransport Transport { get; private set; }
 
+        /// <summary>
+        /// 递归引用限制
+        /// </summary>
         public Int32 RecursionLimit { get; set; }
 
+        /// <summary>
+        /// 增加递归引用深度
+        /// </summary>
+        /// <exception cref="TProtocolException"></exception>
         public void IncrementRecursionDepth()
         {
             if (recursionDepth < RecursionLimit)
@@ -28,33 +42,10 @@ namespace NewLife.Thrift.Protocol
                 throw new TProtocolException(TProtocolException.DEPTH_LIMIT, "Depth limit exceeded");
         }
 
-        public void DecrementRecursionDepth()
-        {
-            --recursionDepth;
-        }
-
-        #region ����
-        private Boolean _IsDisposed;
-
-        /// <summary>����</summary>
-        public void Dispose()
-        {
-            Dispose(true);
-        }
-
-        protected virtual void Dispose(Boolean disposing)
-        {
-            if (!_IsDisposed)
-            {
-                if (disposing)
-                {
-                    if (Transport is IDisposable)
-                        (Transport as IDisposable).Dispose();
-                }
-            }
-            _IsDisposed = true;
-        }
-        #endregion
+        /// <summary>
+        /// 减少递归引用深度
+        /// </summary>
+        public void DecrementRecursionDepth() => --recursionDepth;
 
         public abstract void WriteMessageBegin(TMessage message);
         public abstract void WriteMessageEnd();
@@ -75,10 +66,7 @@ namespace NewLife.Thrift.Protocol
         public abstract void WriteI32(Int32 i32);
         public abstract void WriteI64(Int64 i64);
         public abstract void WriteDouble(Double d);
-        public virtual void WriteString(String s)
-        {
-            WriteBinary(Encoding.UTF8.GetBytes(s));
-        }
+        public virtual void WriteString(String s) => WriteBinary(Encoding.UTF8.GetBytes(s));
         public abstract void WriteBinary(Byte[] b);
 
         public abstract TMessage ReadMessageBegin();

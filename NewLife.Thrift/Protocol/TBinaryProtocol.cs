@@ -1,39 +1,50 @@
-using System;
-using System.Text;
+﻿using System.Text;
 using NewLife.Thrift.Transport;
 
 namespace NewLife.Thrift.Protocol
 {
+    /// <summary>
+    /// 二进制协议
+    /// </summary>
     public class TBinaryProtocol : TProtocol
     {
-        protected const UInt32 VERSION_MASK = 0xffff0000;
-        protected const UInt32 VERSION_1 = 0x80010000;
-
-        protected Boolean strictRead_ = false;
-        protected Boolean strictWrite_ = true;
+        private const UInt32 VERSION_MASK = 0xffff0000;
+        private const UInt32 VERSION_1 = 0x80010000;
+        private readonly Boolean strictRead_ = false;
+        private readonly Boolean strictWrite_ = true;
 
         #region BinaryProtocol Factory
 
+        /// <summary>
+        /// 二进制协议工厂
+        /// </summary>
         public class Factory : TProtocolFactory
         {
-            protected Boolean strictRead_ = false;
-            protected Boolean strictWrite_ = true;
+            private readonly Boolean strictRead_ = false;
+            private readonly Boolean strictWrite_ = true;
 
-            public Factory()
-                : this(false, true)
-            {
-            }
+            /// <summary>
+            /// 实例化二进制协议工厂
+            /// </summary>
+            public Factory() : this(false, true) { }
 
+            /// <summary>
+            /// 实例化二进制协议工厂
+            /// </summary>
+            /// <param name="strictRead"></param>
+            /// <param name="strictWrite"></param>
             public Factory(Boolean strictRead, Boolean strictWrite)
             {
                 strictRead_ = strictRead;
                 strictWrite_ = strictWrite;
             }
 
-            public TProtocol GetProtocol(TTransport trans)
-            {
-                return new TBinaryProtocol(trans, strictRead_, strictWrite_);
-            }
+            /// <summary>
+            /// 获取协议
+            /// </summary>
+            /// <param name="trans"></param>
+            /// <returns></returns>
+            public TProtocol GetProtocol(TTransport trans) => new TBinaryProtocol(trans, strictRead_, strictWrite_);
         }
 
         #endregion
@@ -91,10 +102,7 @@ namespace NewLife.Thrift.Protocol
         {
         }
 
-        public override void WriteFieldStop()
-        {
-            WriteByte((SByte)TType.Stop);
-        }
+        public override void WriteFieldStop() => WriteByte((SByte)TType.Stop);
 
         public override void WriteMapBegin(TMap map)
         {
@@ -127,10 +135,7 @@ namespace NewLife.Thrift.Protocol
         {
         }
 
-        public override void WriteBool(Boolean b)
-        {
-            WriteByte(b ? (SByte)1 : (SByte)0);
-        }
+        public override void WriteBool(Boolean b) => WriteByte(b ? (SByte)1 : (SByte)0);
 
         private readonly Byte[] bout = new Byte[1];
         public override void WriteByte(SByte b)
@@ -171,10 +176,7 @@ namespace NewLife.Thrift.Protocol
             Transport.Write(i64out, 0, 8);
         }
 
-        public override void WriteDouble(Double d)
-        {
-            WriteI64(BitConverter.DoubleToInt64Bits(d));
-        }
+        public override void WriteDouble(Double d) => WriteI64(BitConverter.DoubleToInt64Bits(d));
 
         public override void WriteBinary(Byte[] b)
         {
@@ -218,10 +220,7 @@ namespace NewLife.Thrift.Protocol
         {
         }
 
-        public override TStruct ReadStructBegin()
-        {
-            return new TStruct();
-        }
+        public override TStruct ReadStructBegin() => new TStruct();
 
         public override void ReadStructEnd()
         {
@@ -292,10 +291,7 @@ namespace NewLife.Thrift.Protocol
         {
         }
 
-        public override Boolean ReadBool()
-        {
-            return ReadByte() == 1;
-        }
+        public override Boolean ReadBool() => ReadByte() == 1;
 
         private readonly Byte[] bin = new Byte[1];
         public override SByte ReadByte()
@@ -340,10 +336,7 @@ namespace NewLife.Thrift.Protocol
 
 #pragma warning restore 675
 
-        public override Double ReadDouble()
-        {
-            return BitConverter.Int64BitsToDouble(ReadI64());
-        }
+        public override Double ReadDouble() => BitConverter.Int64BitsToDouble(ReadI64());
 
         public override Byte[] ReadBinary()
         {
@@ -359,10 +352,7 @@ namespace NewLife.Thrift.Protocol
             return Encoding.UTF8.GetString(buf, 0, buf.Length);
         }
 
-        private Int32 ReadAll(Byte[] buf, Int32 off, Int32 len)
-        {
-            return Transport.ReadAll(buf, off, len);
-        }
+        private Int32 ReadAll(Byte[] buf, Int32 off, Int32 len) => Transport.ReadAll(buf, off, len);
 
         #endregion
     }

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.IO.Compression;
-using System.Linq;
+﻿using System.IO.Compression;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
-using System.Threading;
 
 namespace NewLife.Thrift.Transport
 {
@@ -36,18 +31,12 @@ namespace NewLife.Thrift.Transport
 
         public Int32 ConnectTimeout
         {
-            set
-            {
-                connectTimeout = value;
-            }
+            set => connectTimeout = value;
         }
 
         public Int32 ReadTimeout
         {
-            set
-            {
-                readTimeout = value;
-            }
+            set => readTimeout = value;
         }
 
         public IDictionary<String, String> CustomHeaders { get; } = new Dictionary<String, String>();
@@ -55,20 +44,11 @@ namespace NewLife.Thrift.Transport
 #if !SILVERLIGHT
         public IWebProxy Proxy
         {
-            set
-            {
-                proxy = value;
-            }
+            set => proxy = value;
         }
 #endif
 
-        public override Boolean IsOpen
-        {
-            get
-            {
-                return true;
-            }
-        }
+        public override Boolean IsOpen => true;
 
         public override void Open()
         {
@@ -112,10 +92,7 @@ namespace NewLife.Thrift.Transport
             }
         }
 
-        public override void Write(Byte[] buf, Int32 off, Int32 len)
-        {
-            outputStream.Write(buf, off, len);
-        }
+        public override void Write(Byte[] buf, Int32 off, Int32 len) => outputStream.Write(buf, off, len);
 
 #if !SILVERLIGHT
         public override void Flush()
@@ -353,7 +330,7 @@ namespace NewLife.Thrift.Transport
         }
 
         // Based on http://msmvps.com/blogs/luisabreu/archive/2009/06/15/multithreading-implementing-the-iasyncresult-interface.aspx
-        class FlushAsyncResult : IAsyncResult
+        private class FlushAsyncResult : IAsyncResult
         {
             private volatile Boolean _isCompleted;
             private ManualResetEvent _evt;
@@ -370,22 +347,10 @@ namespace NewLife.Thrift.Transport
             internal HttpWebRequest Connection { get; set; }
             internal TTransportException AsyncException { get; set; }
 
-            public Object AsyncState
-            {
-                get { return _state; }
-            }
-            public WaitHandle AsyncWaitHandle
-            {
-                get { return GetEvtHandle(); }
-            }
-            public Boolean CompletedSynchronously
-            {
-                get { return false; }
-            }
-            public Boolean IsCompleted
-            {
-                get { return _isCompleted; }
-            }
+            public Object AsyncState => _state;
+            public WaitHandle AsyncWaitHandle => GetEvtHandle();
+            public Boolean CompletedSynchronously => false;
+            public Boolean IsCompleted => _isCompleted;
             private readonly Object _locker = new Object();
             private ManualResetEvent GetEvtHandle()
             {

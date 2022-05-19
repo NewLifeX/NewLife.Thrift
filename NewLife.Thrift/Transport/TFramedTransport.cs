@@ -1,7 +1,4 @@
-using System;
-using System.IO;
-
-namespace NewLife.Thrift.Transport
+ï»¿namespace NewLife.Thrift.Transport
 {
     public class TFramedTransport : TTransport, IDisposable
     {
@@ -14,10 +11,7 @@ namespace NewLife.Thrift.Transport
 
         public class Factory : TTransportFactory
         {
-            public override TTransport GetTransport(TTransport trans)
-            {
-                return new TFramedTransport(trans);
-            }
+            public override TTransport GetTransport(TTransport trans) => new TFramedTransport(trans);
         }
 
         public TFramedTransport(TTransport transport)
@@ -121,10 +115,7 @@ namespace NewLife.Thrift.Transport
             return transport.BeginFlush(callback, state);
         }
 
-        public override void EndFlush(IAsyncResult asyncResult)
-        {
-            transport.EndFlush(asyncResult);
-        }
+        public override void EndFlush(IAsyncResult asyncResult) => transport.EndFlush(asyncResult);
 
         private void InitWriteBuffer()
         {
@@ -157,10 +148,10 @@ namespace NewLife.Thrift.Transport
                 throw new ObjectDisposedException("TFramedTransport");
         }
 
-        #region Ïú»Ù
+        #region é”€æ¯
         private Boolean _IsDisposed;
 
-        /// <summary>Ïú»Ù</summary>
+        /// <summary>é”€æ¯</summary>
         /// <param name="disposing"></param>
         protected override void Dispose(Boolean disposing)
         {
