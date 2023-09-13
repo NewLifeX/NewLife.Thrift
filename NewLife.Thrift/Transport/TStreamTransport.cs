@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.IO;
 
 namespace NewLife.Thrift.Transport
@@ -73,23 +73,22 @@ namespace NewLife.Thrift.Transport
         }
 
 
-        #region Ïú»Ù
+        #region é”€æ¯
         private Boolean _IsDisposed;
 
-        /// <summary>Ïú»Ù</summary>
+        /// <summary>é”€æ¯</summary>
         protected override void Dispose(Boolean disposing)
         {
-            if (!_IsDisposed)
-            {
-                if (disposing)
-                {
-                    if (InputStream != null)
-                        InputStream.Dispose();
-                    if (OutputStream != null)
-                        OutputStream.Dispose();
-                }
-            }
+            base.Dispose(disposing);
+
+            if (_IsDisposed) return;
             _IsDisposed = true;
+
+            if (disposing)
+            {
+                InputStream?.Dispose();
+                OutputStream?.Dispose();
+            }
         }
         #endregion
     }

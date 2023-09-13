@@ -81,15 +81,15 @@ namespace NewLife.Thrift.Transport
         /// <summary>销毁</summary>
         protected override void Dispose(Boolean disposing)
         {
-            if (!_IsDisposed)
-            {
-                if (disposing)
-                {
-                    if (byteStream != null)
-                        byteStream.Dispose();
-                }
-            }
+            base.Dispose(disposing);
+
+            if (_IsDisposed) return;
             _IsDisposed = true;
+
+            if (disposing)
+            {
+                byteStream?.Dispose();
+            }
         }
     }
 }

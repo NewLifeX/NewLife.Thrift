@@ -78,8 +78,7 @@ namespace NewLife.Thrift.Server
             }
 
             //Fire the preServe server event when server is up but before any client connections
-            if (serverEventHandler != null)
-                serverEventHandler.preServe();
+            serverEventHandler?.preServe();
 
             while (!stop)
             {
@@ -118,8 +117,7 @@ namespace NewLife.Thrift.Server
                                         //N.B. This is the pattern implemented in C++ and the event fires provisionally.
                                         //That is to say it may be many minutes between the event firing and the client request
                                         //actually arriving or the client may hang up without ever makeing a request.
-                                        if (serverEventHandler != null)
-                                            serverEventHandler.processContext(connectionContext, inputTransport);
+                                        serverEventHandler?.processContext(connectionContext, inputTransport);
                                         //Process client request (blocks until transport is readable)
                                         if (!processor.Process(inputProtocol, outputProtocol))
                                             break;
@@ -143,8 +141,7 @@ namespace NewLife.Thrift.Server
                 }
 
                 //Fire deleteContext server event after client disconnects
-                if (serverEventHandler != null)
-                    serverEventHandler.deleteContext(connectionContext, inputProtocol, outputProtocol);
+                serverEventHandler?.deleteContext(connectionContext, inputProtocol, outputProtocol);
             }
         }
 

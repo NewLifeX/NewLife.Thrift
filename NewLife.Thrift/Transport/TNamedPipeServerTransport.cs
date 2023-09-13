@@ -159,8 +159,7 @@ namespace NewLife.Thrift.Transport
 
             public override void Close()
             {
-                if (stream != null)
-                    stream.Close();
+                stream?.Close();
             }
 
             public override Int32 Read(Byte[] buf, Int32 off, Int32 len)
@@ -264,8 +263,9 @@ namespace NewLife.Thrift.Transport
 
             protected override void Dispose(Boolean disposing)
             {
-                if (stream != null)
-                    stream.Dispose();
+                base.Dispose(disposing);
+
+                stream?.Dispose();
             }
         }
     }

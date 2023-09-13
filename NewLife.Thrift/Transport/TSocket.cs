@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Net.Sockets;
 
 namespace NewLife.Thrift.Transport
@@ -176,22 +176,23 @@ namespace NewLife.Thrift.Transport
             }
         }
 
-        #region Ïú»Ù
+        #region é”€æ¯
         private Boolean _IsDisposed;
 
-        /// <summary>Ïú»Ù</summary>
+        /// <summary>é”€æ¯</summary>
         protected override void Dispose(Boolean disposing)
         {
-            if (!_IsDisposed)
-            {
-                if (disposing)
-                {
-                    if (TcpClient != null)
-                        ((IDisposable)TcpClient).Dispose();
-                    base.Dispose(disposing);
-                }
-            }
+            base.Dispose(disposing);
+
+            if (_IsDisposed) return;
             _IsDisposed = true;
+
+            if (disposing)
+            {
+                if (TcpClient != null)
+                    ((IDisposable)TcpClient).Dispose();
+                base.Dispose(disposing);
+            }
         }
         #endregion
     }

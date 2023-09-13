@@ -82,7 +82,9 @@ namespace NewLife.Thrift.Transport
 
         protected override void Dispose(Boolean disposing)
         {
-            client.Dispose();
+            base.Dispose(disposing);
+
+            client?.Dispose();
         }
     }
 }

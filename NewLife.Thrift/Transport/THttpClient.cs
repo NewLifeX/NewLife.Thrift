@@ -372,10 +372,7 @@ namespace NewLife.Thrift.Transport
                 _isCompleted = true; //1. set _iscompleted to true
                 lock (_locker)
                 {
-                    if (_evt != null)
-                    {
-                        _evt.Set(); //2. set the event, when it exists
-                    }
+                    _evt?.Set(); //2. set the event, when it exists
                 }
             }
 
@@ -394,17 +391,16 @@ namespace NewLife.Thrift.Transport
         // IDisposable
         protected override void Dispose(Boolean disposing)
         {
-            if (!_IsDisposed)
-            {
-                if (disposing)
-                {
-                    if (inputStream != null)
-                        inputStream.Dispose();
-                    if (outputStream != null)
-                        outputStream.Dispose();
-                }
-            }
+            base.Dispose(disposing);
+
+            if (_IsDisposed) return;
             _IsDisposed = true;
+
+            if (disposing)
+            {
+                inputStream?.Dispose();
+                outputStream?.Dispose();
+            }
         }
         #endregion
     }

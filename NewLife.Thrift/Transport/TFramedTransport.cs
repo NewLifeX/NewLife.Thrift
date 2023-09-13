@@ -155,19 +155,17 @@
         /// <param name="disposing"></param>
         protected override void Dispose(Boolean disposing)
         {
-            if (!_IsDisposed)
-            {
-                if (disposing)
-                {
-                    if (readBuffer != null)
-                        readBuffer.Dispose();
-                    if (writeBuffer != null)
-                        writeBuffer.Dispose();
-                    if (transport != null)
-                        transport.Dispose();
-                }
-            }
+            base.Dispose(disposing);
+
+            if (_IsDisposed) return;
             _IsDisposed = true;
+
+            if (disposing)
+            {
+                readBuffer?.Dispose();
+                writeBuffer?.Dispose();
+                transport?.Dispose();
+            }
         }
         #endregion
     }

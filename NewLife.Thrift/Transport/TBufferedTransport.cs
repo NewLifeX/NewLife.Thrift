@@ -1,4 +1,4 @@
-using System;
+Ôªøusing System;
 using System.IO;
 
 namespace NewLife.Thrift.Transport
@@ -143,25 +143,23 @@ namespace NewLife.Thrift.Transport
                 throw new ObjectDisposedException("TBufferedTransport");
         }
 
-        #region œ˙ªŸ
+        #region ÈîÄÊØÅ
         protected Boolean _IsDisposed { get; private set; }
 
-        /// <summary>œ˙ªŸ</summary>
+        /// <summary>ÈîÄÊØÅ</summary>
         protected override void Dispose(Boolean disposing)
         {
-            if (!_IsDisposed)
-            {
-                if (disposing)
-                {
-                    if (inputBuffer != null)
-                        inputBuffer.Dispose();
-                    if (outputBuffer != null)
-                        outputBuffer.Dispose();
-                    if (transport != null)
-                        transport.Dispose();
-                }
-            }
+            base.Dispose(disposing);
+
+            if (_IsDisposed) return;
             _IsDisposed = true;
+
+            if (disposing)
+            {
+                inputBuffer?.Dispose();
+                outputBuffer?.Dispose();
+                transport?.Dispose();
+            }
         }
         #endregion
     }
